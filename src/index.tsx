@@ -59,19 +59,22 @@ function App() {
 
   return (
     <div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <svg viewBox="0 0 800 600" style={{ maxWidth: "min(90vw, 90vh)" }}>
+          <circle cx="400" cy="300" r={RADIUS} fill="none" stroke="black" strokeWidth="20" />
+          {!error && x && y && (
+            <line x1="400" y1="300" x2={x + 400} y2={(300 - y)} stroke="black" strokeWidth="20" />
+          )}
+        </svg>
+      </div>
 
-      <svg viewBox="0 0 800 600">
-        <circle cx="400" cy="300" r={RADIUS} fill="none" stroke="black" strokeWidth="20" />
-        {!error && x && y && (
-          <line x1="400" y1="300" x2={x + 400} y2={(300 - y)} stroke="black" strokeWidth="20" />
-        )}
-      </svg>
+      <div>
+        {remaining && <p>You have {remaining} years left.</p>}
 
-      {remaining && <p>You have {remaining} years left.</p>}
-
-      <label htmlFor="birth-year">Your birth year: </label>
-      <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
-      {error && <p>{error}</p>}
+        <label htmlFor="birth-year">Your birth year: </label>
+        <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
+        {error && <p>{error}</p>}
+      </div>
     </div>
   )
 }
