@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useCallback, useState } from "react"
 import { createRoot } from "react-dom/client"
 
-// FIXME: parameterized canvas width and height
 const AGE_SCALE = 80
+const VB_HEIGHT = 600
+const VB_WIDTH = 800
 const RADIUS = 200
+const BOLDNESS = 20
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = createRoot(document.getElementById("app")!!)
@@ -60,10 +62,10 @@ function App() {
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <svg viewBox="0 0 800 600" style={{ maxWidth: "min(90vw, 90vh)" }}>
-          <circle cx="400" cy="300" r={RADIUS} fill="none" stroke="black" strokeWidth="20" />
+        <svg viewBox={`0 0 ${VB_WIDTH} ${VB_HEIGHT}`} style={{ maxWidth: "min(90vw, 90vh)" }}>
+          <circle cx={VB_WIDTH / 2} cy={VB_HEIGHT / 2} r={RADIUS} fill="none" stroke="black" strokeWidth={BOLDNESS} />
           {!error && x && y && (
-            <line x1="400" y1="300" x2={x + 400} y2={(300 - y)} stroke="black" strokeWidth="20" />
+            <line x1={VB_WIDTH / 2} y1={VB_HEIGHT / 2} x2={x + (VB_WIDTH / 2)} y2={((VB_HEIGHT / 2) - y)} stroke="black" strokeWidth={BOLDNESS} />
           )}
         </svg>
       </div>
