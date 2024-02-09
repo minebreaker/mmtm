@@ -33,8 +33,8 @@ function App() {
     const currentYear = new Date().getFullYear()
     const birthYear = Number.parseInt(inputBirthYear ?? "")
 
-    // It's very unlikely to be born before 1800 or after 2100. In these cases error message is tedious, just ignore the input.
-    if (birthYear > 2100 || birthYear < 1800) {
+    // It's very unlikely to be born before 1900 or after 2100. In these cases error message is tedious, just ignore the input.
+    if (birthYear > 2100 || birthYear < 1900) {
       return
     }
 
@@ -95,12 +95,14 @@ function App() {
         </svg>
       </div>
 
-      <div>
-        {remaining && <p>You have {remaining} years left.</p>}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div>
+          {remaining && <p>You have {remaining} years left, if you die at 80.</p>}
 
-        <label htmlFor="birth-year">Your birth year: </label>
-        <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
-        {error && <p>{error}</p>}
+          <label htmlFor="birth-year">Your birth year: </label>
+          <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
+          {error && <p>{error}</p>}
+        </div>
       </div>
     </div>
   )
