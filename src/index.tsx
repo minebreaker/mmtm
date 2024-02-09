@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react"
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { createRoot } from "react-dom/client"
 
 const AGE_SCALE = 80
@@ -6,6 +6,8 @@ const VB_HEIGHT = 600
 const VB_WIDTH = 800
 const RADIUS = 200
 const BOLDNESS = 20
+
+const LOCAL_STORAGE_KEY = "birthYear"
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = createRoot(document.getElementById("app")!!)
@@ -21,8 +23,7 @@ function App() {
   const [x, setX] = useState(0)
   const [y, setY] = useState(0)
 
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const inputBirthYear = e.target.value
+  const calcChange = useCallback((inputBirthYear: string) => {
     setInputBirthYear(inputBirthYear)
     setError(undefined)
     setRemaining(undefined)
@@ -31,6 +32,12 @@ function App() {
 
     const currentYear = new Date().getFullYear()
     const birthYear = Number.parseInt(inputBirthYear ?? "")
+
+    // It's very unlikely to be born before 1800 or after 2100. In these cases error message is tedious, just ignore the input.
+    if (birthYear > 2100 || birthYear < 1800) {
+      return
+    }
+
     if (Number.isNaN(birthYear)) {
       setError("invalid value")
       return
@@ -40,7 +47,13 @@ function App() {
       setError("you are not born yet.")
       return
     }
+
+    // looks like the input is valid birthday...
+
     setRemaining(diff.toString())
+
+    // save for later accesses
+    localStorage.setItem(LOCAL_STORAGE_KEY, birthYear.toString())
 
     // FIXME: use radian
     // diff : scale = r : 360
@@ -57,6 +70,18 @@ function App() {
 
     setX(x)
     setY(y)
+  }, [])
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    calcChange(e.target.value)
+  }, [])
+
+  useEffect(() => {
+    const saved = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (saved) {
+      console.log("read from localstorage")
+      calcChange(saved)
+    }
   }, [])
 
   return (
