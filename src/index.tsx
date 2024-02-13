@@ -97,11 +97,16 @@ function App() {
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div>
-          {remaining && <p>You have {remaining} years left, if you die at 80.</p>}
+          <div>
+            {remaining && <p>You have {remaining} years left, if you die at 80.</p>}
 
-          <label htmlFor="birth-year">Your birth year: </label>
-          <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
-          {error && <p>{error}</p>}
+            <label htmlFor="birth-year">Your birth year: </label>
+            <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChange} />
+            {error && <p>{error}</p>}
+          </div>
+          <div>
+            <a href="https://github.com/minebreaker/mmtm">GitHub</a>
+          </div>
         </div>
       </div>
     </div>
