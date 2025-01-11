@@ -13,9 +13,19 @@ function App() {
   const [birthYear, setBirthYear] = useState<number | undefined>()
 
   return (
-    <div>
-      <Clock birthYear={birthYear} />
-      <BirthDayInput onChange={setBirthYear} />
+    <div style={{ display: "grid", gridTemplateRows: "auto 1fr auto", height: "100vh" }}>
+      <header />
+
+      <main>
+        <Clock birthYear={birthYear} />
+        <BirthDayInput onChange={setBirthYear} />
+      </main>
+
+      <footer style={{ display: "flex", justifyContent: "end" }}>
+        <div style={{ padding: "1rem" }}>
+          <a href="https://github.com/minebreaker/mmtm">GitHub</a>
+        </div>
+      </footer>
     </div>
   )
 }

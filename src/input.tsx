@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from "react"
+import { Centering } from "./utils/components"
 
 const LOCAL_STORAGE_KEY = "birthYear"
 
@@ -35,18 +36,12 @@ export function BirthDayInput({ onChange }: { onChange: (birthYear: number) => v
   }, [handleChange])
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <Centering>
       <div>
-        <div>
-          <label htmlFor="birth-year">Your birth year: </label>
-          <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChangeCb} />
-        </div>
-
-        <div>
-          <a href="https://github.com/minebreaker/mmtm">GitHub</a>
-        </div>
+        <label htmlFor="birth-year">Your birth year: </label>
+        <input id="birth-year" type="text" value={inputBirthYear} onChange={handleChangeCb} style={{ width: "4em" }} />
       </div>
-    </div>
+    </Centering>
   )
 }
 
