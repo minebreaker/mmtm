@@ -33,6 +33,9 @@ export function Clock({ birthYear }: { birthYear: number | undefined }) {
     setRemainingLife(undefined)
     setAgeX(0)
     setAgeY(0)
+    setRemainingDaysOfYear(undefined)
+    setYearX(0)
+    setYearY(0)
 
     if (!birthYear) {
       return

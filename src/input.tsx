@@ -3,7 +3,7 @@ import { Centering } from "./utils/components"
 
 const LOCAL_STORAGE_KEY = "birthYear"
 
-export function BirthDayInput({ onChange }: { onChange: (birthYear: number) => void }) {
+export function BirthDayInput({ onChange }: { onChange: (birthYear: number | undefined) => void }) {
 
   const [inputBirthYear, setInputBirthYear] = useState<string>()
 
@@ -11,12 +11,19 @@ export function BirthDayInput({ onChange }: { onChange: (birthYear: number) => v
 
     const birthYear = Number.parseInt(inputBirthYear ?? "")
 
-    // It's very unlikely to be born before 1900 or after 2100. In these cases error message is tedious, just ignore the input.
-    if (birthYear > 2100 || birthYear < 1900) {
+    setInputBirthYear(inputBirthYear)
+
+    if (Number.isNaN(birthYear)) {
+      onChange(undefined)
       return
     }
 
-    setInputBirthYear(inputBirthYear)
+    // It's very unlikely to be born before 1900 or after 2100.
+    if (birthYear > 2100 || birthYear < 1900) {
+      onChange(undefined)
+      return
+    }
+
     // save for later accesses
     localStorage.setItem(LOCAL_STORAGE_KEY, birthYear.toString())
 
