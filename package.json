@@ -7,7 +7,9 @@
     "build": "npm run compile && npm run bundle && npm run copy",
     "build:clean": "npm run clean && npm run build",
     "compile": "tsc",
+    "compile:watch": "tsc -w",
     "bundle": "esbuild ./out/js/index.jsx --bundle --minify --sourcemap --outfile=./out/index.js",
+    "bundle:watch": "esbuild ./out/js/index.jsx --bundle --minify --sourcemap --outfile=./out/index.js --watch",
     "copy": "cpx ./src/index.html ./out/",
     "clean": "rimraf ./out",
     "test": "echo \"Error: no test specified\" && exit 1"
