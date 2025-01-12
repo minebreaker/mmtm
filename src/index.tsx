@@ -13,7 +13,7 @@ function App() {
   const [birthYear, setBirthYear] = useState<number | undefined>()
 
   return (
-    <div style={{ display: "grid", gridTemplateRows: "auto 1fr auto", height: "100dvh" }}>
+    <div style={{ display: "grid", gridTemplateRows: "auto 1fr auto", height: "100svh" }}>
       <header />
 
       <main>
