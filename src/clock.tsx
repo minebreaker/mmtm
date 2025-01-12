@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Centering } from "./utils/components"
 import { isMobile } from "./utils/utils"
+import { DateTime } from "luxon"
 
 const AGE_SCALE = 80
 const BOLDNESS = 20
@@ -9,7 +10,7 @@ const AGE_HAND_LENGTH_RATIO = 0.5
 const YEAR_HAND_LENGTH_RATIO = 0.9
 const COLOR = "black"
 
-export function Clock({ birthYear }: { birthYear: number | undefined }) {
+export function Clock({ birthday }: { birthday: DateTime | undefined }) {
 
   const viewHeight = isMobile() ? 600 : 600
   const viewWidth = isMobile() ? 600 : 800
@@ -37,6 +38,7 @@ export function Clock({ birthYear }: { birthYear: number | undefined }) {
     setYearX(0)
     setYearY(0)
 
+    const birthYear = birthday?.year
     if (!birthYear) {
       return
     }
@@ -99,7 +101,7 @@ export function Clock({ birthYear }: { birthYear: number | undefined }) {
     const { x: yearX, y: yearY } = calc(currentDay, daysInYear)
     setYearX(yearX)
     setYearY(yearY)
-  }, [birthYear]);
+  }, [birthday]);
 
   return (
     <Centering style={isMobile() ? {} : { padding: "1rem" }}>
