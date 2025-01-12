@@ -6,7 +6,6 @@ type Tab = { name: string, component: React.ReactElement }
 export function Tab(props: { children: Tab[] }): React.ReactElement {
 
   const [currentTabName, setCurrentTabName] = useState<string | undefined>(props.children.length > 0 ? props.children[0].name : undefined)
-  const currentTab = props.children.find(t => t.name === currentTabName)
 
   return (
     <div style={{ paddingTop: "1rem" }}>
@@ -29,12 +28,14 @@ export function Tab(props: { children: Tab[] }): React.ReactElement {
         )}
         <div style={{ borderBottom: "1px solid black", flexGrow: 1 }} />
       </div>
-      {/* TODO: Just change the visibility and do not rerender */}
-      {currentTab && (
-        <div style={{ width: "100vw" }}>
-          {currentTab.component}
+      {props.children.map(({ name, component }) => (
+        <div style={{
+          display: name === currentTabName ? "block" : "none",
+          width: "100vw"
+        }}>
+          {component}
         </div>
-      )}
+      ))}
     </div>
   )
 }
