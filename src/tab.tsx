@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 
 
 type Tab = { name: string, component: React.ReactElement }
@@ -6,6 +6,22 @@ type Tab = { name: string, component: React.ReactElement }
 export function Tab(props: { children: Tab[] }): React.ReactElement {
 
   const [currentTabName, setCurrentTabName] = useState<string | undefined>(props.children.length > 0 ? props.children[0].name : undefined)
+
+  useEffect(() => {
+    const url = new URL(location.href)
+    const requestedTab = url.searchParams.get("tab")
+    if (requestedTab && currentTabName !== requestedTab && props.children.find(t => t.name === requestedTab)) {
+      setCurrentTabName(requestedTab)
+    }
+  }, [currentTabName, props.children]);
+
+  const handleChange = useCallback((tabName: string) => {
+    // Save current tab name as a query parameter
+    const newUrl = new URL(location.href)
+    newUrl.searchParams.set("tab", tabName)
+    history.pushState({}, "", newUrl)
+    setCurrentTabName(tabName)
+  }, [])
 
   return (
     <div style={{ paddingTop: "1rem" }}>
@@ -22,7 +38,7 @@ export function Tab(props: { children: Tab[] }): React.ReactElement {
               cursor: "pointer"
             }
           }
-             onClick={_ => setCurrentTabName(tab.name)}>
+             onClick={_ => handleChange(tab.name)}>
             {tab.name}
           </p>
         )}
